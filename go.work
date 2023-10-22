@@ -3,4 +3,5 @@ go 1.21.1
 use (
 	./1_hello_world
 	./2_integers
+	./3_iteration
 )
