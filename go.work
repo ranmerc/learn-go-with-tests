@@ -7,4 +7,5 @@ use (
 	./4_arrays_and_slices
 	./5_structures_methods_and_interfaces
 	./6_pointers_and_errors
+	./7_maps
 )
