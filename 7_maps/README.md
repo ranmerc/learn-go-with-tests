@@ -17,3 +17,31 @@ func (d Dictionary) Search(word string) (string, error) {
 ```
 
 A map lookup can return 2 values. The second value is a boolean which indicates if the key was found successfully.
+
+```go
+func (d Dictionary) Add(word, definition string) {
+  d[word] = definition
+}
+```
+
+Adding to a map is also similar to an array. You just need to specify a key and set it equal to a value.
+
+An interesting property of maps is that you can modify them without passing as an address to it (e.g `&myMap`)
+
+When you pass a map to a function/method, you are indeed copying it, but just the pointer part, not the underlying data structure that contains the data.
+
+A gotcha with maps is that they can be a `nil` value. A `nil` map behaves like an empty map when reading, but attempts to write to a `nil` map will cause a **runtime panic**.
+
+Therefore, you should never initialize an empty map variable, initialize with an empty map or use `make`
+
+```go
+var dictionary = map[string]string{}
+
+// OR
+
+var dictionary = make(map[string]string)
+```
+
+## References
+
+- [If a map isn’t a reference variable, what is it?](https://dave.cheney.net/2017/04/30/if-a-map-isnt-a-reference-variable-what-is-it)
