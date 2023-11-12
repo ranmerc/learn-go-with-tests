@@ -20,3 +20,4 @@ List of per lesson notes -
 5. [Structure methods and interfaces](./5_structures_methods_and_interfaces/README.md)
 6. [Pointers and Errors](./6_pointers_and_errors/README.md)
 7. [Maps](./7_maps/README.md)
+8. [Dependency Injection](./8_dependency_injection/README.md)
