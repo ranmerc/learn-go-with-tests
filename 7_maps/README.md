@@ -69,6 +69,12 @@ then declaring errors as -
 const ErrNotFound = DictionaryErr('not found')
 ```
 
+Go has a built-in function delete that works on maps. It takes two arguments. The first is the map and the second is the key to be removed.
+
+```go
+delete(d, word)
+```
+
 ## References
 
 - [If a map isn’t a reference variable, what is it?](https://dave.cheney.net/2017/04/30/if-a-map-isnt-a-reference-variable-what-is-it)
