@@ -42,6 +42,34 @@ var dictionary = map[string]string{}
 var dictionary = make(map[string]string)
 ```
 
+We can group together declaration as such -
+
+```go
+var (
+  ErrNotFound   = errors.New("could not find the word you were looking for")
+  ErrWordExists = errors.New("cannot add word because it already exists")
+)
+```
+
+Any type with an Error() string method fulfils the error interface.
+
+Make errors immutable and more reusable by creating a type for it -
+
+```go
+type DictionaryErr string
+
+func (e DictionaryErr) Error() string {
+  return string(e)
+}
+```
+
+then declaring errors as -
+
+```go
+const ErrNotFound = DictionaryErr('not found')
+```
+
 ## References
 
 - [If a map isn’t a reference variable, what is it?](https://dave.cheney.net/2017/04/30/if-a-map-isnt-a-reference-variable-what-is-it)
+- [Constant errors](https://dave.cheney.net/2016/04/07/constant-errors)
