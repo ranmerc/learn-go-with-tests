@@ -12,3 +12,11 @@ Whenever we want to write somewhere, io.Writer is the de-facto way of capturing 
 - In test we will send to `bytes.Buffer` so our tests can capture what data is being generated.
 
 **Take a thin slice of functionality and make it work end-to-end, backed by tests.**
+
+We can also use backticks for strings and include new lines.
+
+To sleep for 1 seconds.
+
+```go
+  time.Sleep(1 * time.Second)
+```
