@@ -1,4 +1,4 @@
-go 1.21.1
+go 1.21.5
 
 use (
 	./1_hello_world
@@ -9,4 +9,5 @@ use (
 	./6_pointers_and_errors
 	./7_maps
 	./8_dependency_injection
+	./9_mocking
 )

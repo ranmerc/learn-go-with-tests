@@ -21,3 +21,4 @@ List of per lesson notes -
 6. [Pointers and Errors](./6_pointers_and_errors/README.md)
 7. [Maps](./7_maps/README.md)
 8. [Dependency Injection](./8_dependency_injection/README.md)
+9. [Mocking](./9_mocking/README.md)
