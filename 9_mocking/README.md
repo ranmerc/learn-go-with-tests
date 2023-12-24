@@ -20,3 +20,11 @@ To sleep for 1 seconds.
 ```go
   time.Sleep(1 * time.Second)
 ```
+
+## Mocking
+
+We have a dependency on Sleeping which we need to extract so we can then control it in our tests.
+
+If we can mock `time.Sleep` we can use dependency injection to use it instead of a "real" `time.Sleep` and then we can spy on the calls to make assertions on them.
+
+_Spies_ are a kind of mock which can record how a dependency is used. They can record the arguments sent in, how many times it has been called, etc.

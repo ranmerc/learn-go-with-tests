@@ -1,9 +1,9 @@
 package countdown
 
 import (
+	"9_mocking/sleeper"
 	"fmt"
 	"io"
-	"time"
 )
 
 const (
@@ -11,10 +11,10 @@ const (
 	countdownStart = 3
 )
 
-func Countdown(out io.Writer) {
+func Countdown(out io.Writer, s sleeper.Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(out, i)
-		time.Sleep(1 * time.Second)
+		s.Sleep()
 	}
 
 	fmt.Fprint(out, finalWord)
