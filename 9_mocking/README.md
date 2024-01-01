@@ -28,3 +28,5 @@ We have a dependency on Sleeping which we need to extract so we can then control
 If we can mock `time.Sleep` we can use dependency injection to use it instead of a "real" `time.Sleep` and then we can spy on the calls to make assertions on them.
 
 _Spies_ are a kind of mock which can record how a dependency is used. They can record the arguments sent in, how many times it has been called, etc.
+
+When writing tests if you're not confident that your tests are giving you sufficient confidence, just break it
