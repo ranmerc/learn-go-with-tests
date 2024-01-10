@@ -1,6 +1,7 @@
 go 1.21.5
 
 use (
+	./10_concurrency
 	./1_hello_world
 	./2_integers
 	./3_iteration
