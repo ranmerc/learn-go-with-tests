@@ -24,3 +24,4 @@ List of per lesson notes -
 9. [Mocking](./9_mocking/README.md)
 10. [Concurrency](./10_concurrency/README.md)
 11. [Select](./11_select/README.md)
+12. [Reflection](./12_reflection/README.md)
