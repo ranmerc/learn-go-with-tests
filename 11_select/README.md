@@ -28,6 +28,8 @@ Always use `make` to create channels. Since for channels the zero value is nil a
 
 `select` allows you to wait on multiple channels. The first one to send a value "wins" and the code underneath the case is executed.
 
+`time.After` returns a `chan` and will send a signal down it after the amount of time you define.
+
 ### References
 
 - [Go Concurrency Patterns: Pipelines and cancellation](https://go.dev/blog/pipelines)
