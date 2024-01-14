@@ -23,3 +23,4 @@ List of per lesson notes -
 8. [Dependency Injection](./8_dependency_injection/README.md)
 9. [Mocking](./9_mocking/README.md)
 10. [Concurrency](./10_concurrency/README.md)
+11. [Select](./11_select/README.md)
