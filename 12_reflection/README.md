@@ -14,6 +14,14 @@ case 1, 2:
   fmt.Printf("One or two")
 ```
 
+Iterating over channels -
+
+```go
+for v, ok := value.Recv(); ok; v, ok = value.Recv() {
+  walkValue(v)
+}
+```
+
 ### References
 
 - [Laws of Reflection](https://blog.golang.org/laws-of-reflection)
