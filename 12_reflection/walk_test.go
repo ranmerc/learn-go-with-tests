@@ -5,6 +5,16 @@ import (
 	"testing"
 )
 
+type Profile struct {
+	Age  int
+	City string
+}
+
+type Person struct {
+	Name    string
+	Profile Profile
+}
+
 func TestWalk(t *testing.T) {
 	cases := []struct {
 		Name          string
@@ -39,18 +49,17 @@ func TestWalk(t *testing.T) {
 		},
 		{
 			Name: "nested fields",
-			Input: struct {
-				Name    string
-				Profile struct {
-					Age  int
-					City string
-				}
-			}{
-				Name: "Chris",
-				Profile: struct {
-					Age  int
-					City string
-				}{Age: 23, City: "London"},
+			Input: Person{
+				Name:    "Chris",
+				Profile: Profile{Age: 23, City: "London"},
+			},
+			ExpectedCalls: []string{"Chris", "London"},
+		},
+		{
+			Name: "pointers to things",
+			Input: &Person{
+				Name:    "Chris",
+				Profile: Profile{Age: 23, City: "London"},
 			},
 			ExpectedCalls: []string{"Chris", "London"},
 		},
@@ -70,18 +79,4 @@ func TestWalk(t *testing.T) {
 			}
 		})
 	}
-	// expected := "Chris"
-	// var got []string
-
-	// x := struct {
-	// 	Name string
-	// }{expected}
-
-	// Walk(x, func(input string) {
-	// 	got = append(got, input)
-	// })
-
-	// if got[0] != expected {
-	// 	t.Errorf("got %q want %q", got[0], expected)
-	// }
 }
