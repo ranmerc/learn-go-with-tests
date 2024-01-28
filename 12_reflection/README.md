@@ -24,6 +24,36 @@ for v, ok := value.Recv(); ok; v, ok = value.Recv() {
 
 Send in base type `nil` places where you are expected to send something, but have nothing to send.
 
-### References
+## Corresponding functions on `reflect.Value` for different data types
+
+### String
+
+- `String()` value as string.
+
+### Struct
+
+- `NumField()` number of fields present in struct.
+- `Field(i)` reflect value of field at index.
+
+### Array/Slice
+
+- `Len()` returns length.
+- `Index()` reflect value at index
+
+### Map
+
+- `MapKeys()` slice containing all keys of the map.
+- `MapIndex()` reflect values present at index.
+
+### Channel
+
+- `Recv()` receive from channel.
+- `Send()` send to channel.
+
+### Function
+
+- `Call()` calls with reflect value arguments and returns reflect values result
+
+## References
 
 - [Laws of Reflection](https://blog.golang.org/laws-of-reflection)
