@@ -16,103 +16,130 @@ type Person struct {
 }
 
 func TestWalk(t *testing.T) {
-	cases := []struct {
-		Name          string
-		Input         interface{}
-		ExpectedCalls []string
-	}{
-		{
-			Name: "struct with only string field",
-			Input: struct {
-				Name string
-			}{"Chris"},
-			ExpectedCalls: []string{"Chris"},
-		},
-		{
-			Name: "struct with two string fields",
-			Input: struct {
-				Name string
-				City string
-			}{"Chris", "London"},
-			ExpectedCalls: []string{"Chris", "London"},
-		},
-		{
-			Name: "struct with non string fields",
-			Input: struct {
-				Name string
-				Age  int
-			}{
-				Name: "Chris",
-				Age:  23,
+	t.Run("other types", func(t *testing.T) {
+		cases := []struct {
+			Name          string
+			Input         interface{}
+			ExpectedCalls []string
+		}{
+			{
+				Name: "struct with only string field",
+				Input: struct {
+					Name string
+				}{"Chris"},
+				ExpectedCalls: []string{"Chris"},
 			},
-			ExpectedCalls: []string{"Chris"},
-		},
-		{
-			Name: "nested fields",
-			Input: Person{
-				Name:    "Chris",
-				Profile: Profile{Age: 23, City: "London"},
+			{
+				Name: "struct with two string fields",
+				Input: struct {
+					Name string
+					City string
+				}{"Chris", "London"},
+				ExpectedCalls: []string{"Chris", "London"},
 			},
-			ExpectedCalls: []string{"Chris", "London"},
-		},
-		{
-			Name: "pointers to things",
-			Input: &Person{
-				Name:    "Chris",
-				Profile: Profile{Age: 23, City: "London"},
-			},
-			ExpectedCalls: []string{"Chris", "London"},
-		},
-		{
-			Name: "slices",
-			Input: []Profile{
-				{
-					Age:  22,
-					City: "London",
-				},
-				{
+			{
+				Name: "struct with non string fields",
+				Input: struct {
+					Name string
+					Age  int
+				}{
+					Name: "Chris",
 					Age:  23,
-					City: "Edinburgh",
 				},
+				ExpectedCalls: []string{"Chris"},
 			},
-			ExpectedCalls: []string{"London", "Edinburgh"},
-		},
-		{
-			Name: "arrays",
-			Input: [2]Profile{
-				{
-					Age:  22,
-					City: "London",
+			{
+				Name: "nested fields",
+				Input: Person{
+					Name:    "Chris",
+					Profile: Profile{Age: 23, City: "London"},
 				},
-				{
-					Age:  23,
-					City: "Edinburgh",
+				ExpectedCalls: []string{"Chris", "London"},
+			},
+			{
+				Name: "pointers to things",
+				Input: &Person{
+					Name:    "Chris",
+					Profile: Profile{Age: 23, City: "London"},
 				},
+				ExpectedCalls: []string{"Chris", "London"},
 			},
-			ExpectedCalls: []string{"London", "Edinburgh"},
-		},
-		{
-			Name: "map",
-			Input: map[string]string{
-				"Cow": "Moo",
-				"Cat": "Meow",
+			{
+				Name: "slices",
+				Input: []Profile{
+					{
+						Age:  22,
+						City: "London",
+					},
+					{
+						Age:  23,
+						City: "Edinburgh",
+					},
+				},
+				ExpectedCalls: []string{"London", "Edinburgh"},
 			},
-			ExpectedCalls: []string{"Moo", "Meow"},
-		},
+			{
+				Name: "arrays",
+				Input: [2]Profile{
+					{
+						Age:  22,
+						City: "London",
+					},
+					{
+						Age:  23,
+						City: "Edinburgh",
+					},
+				},
+				ExpectedCalls: []string{"London", "Edinburgh"},
+			},
+		}
+
+		for _, test := range cases {
+			t.Run(test.Name, func(t *testing.T) {
+				var got []string
+				expected := test.ExpectedCalls
+
+				Walk(test.Input, func(input string) {
+					got = append(got, input)
+				})
+
+				if !reflect.DeepEqual(got, expected) {
+					t.Errorf("got %v want %v", got, expected)
+				}
+			})
+		}
+	})
+
+	t.Run("with maps", func(t *testing.T) {
+		aMap := map[string]string{
+			"Cow": "Moo",
+			"Cat": "Meow",
+		}
+
+		var got []string
+
+		Walk(aMap, func(input string) {
+			got = append(got, input)
+		})
+
+		assertContains(t, got, "Moo")
+		assertContains(t, got, "Meow")
+	})
+}
+
+func assertContains(t *testing.T, haystack []string, needle string) {
+	t.Helper()
+
+	contains := false
+
+	for _, x := range haystack {
+		if x == needle {
+			contains = true
+			break
+		}
 	}
 
-	for _, test := range cases {
-		t.Run(test.Name, func(t *testing.T) {
-			var got []string
-			expected := test.ExpectedCalls
-
-			Walk(test.Input, func(input string) {
-				got = append(got, input)
-			})
-
-			if !reflect.DeepEqual(got, expected) {
-				t.Errorf("got %v want %v", got, expected)
-			}
-		})
+	if !contains {
+		t.Errorf("expected %v to contain %q but it didn't", haystack, needle)
 	}
 }
