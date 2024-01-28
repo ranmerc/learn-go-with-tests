@@ -28,6 +28,12 @@ func Walk(x interface{}, fn func(input string)) {
 		for v, ok := value.Recv(); ok; v, ok = value.Recv() {
 			walkValue(v)
 		}
+	case reflect.Func:
+		result := value.Call(nil)
+
+		for _, value := range result {
+			walkValue(value)
+		}
 	}
 }
 

@@ -22,6 +22,8 @@ for v, ok := value.Recv(); ok; v, ok = value.Recv() {
 }
 ```
 
+Send in base type `nil` places where you are expected to send something, but have nothing to send.
+
 ### References
 
 - [Laws of Reflection](https://blog.golang.org/laws-of-reflection)
